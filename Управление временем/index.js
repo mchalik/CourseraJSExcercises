@@ -5,7 +5,11 @@
 module.exports = function (date) {
     date = new Date(date);
 
-    function subtractValue(date, value, timeUnit) {
+    function subtractValue(date, value, timeUnit, plus) {
+
+        if (value < 0) throw new TypeError('negative value');
+
+        if (plus === true) value = -value;
 
         if (timeUnit === 'years') {
             date.setFullYear(date.getFullYear() - value);
@@ -33,13 +37,11 @@ module.exports = function (date) {
     return {
         date: date,
         subtract: function (value, timeUnit) {
-            if (value < 0) throw new TypeError('negative value');
             this.date = subtractValue(this.date, value, timeUnit);
             return this;
         },
         add: function (value, timeUnit) {
-            if (value < 0) throw new TypeError('negative value');
-            this.date = subtractValue(this.date, -value, timeUnit);
+            this.date = subtractValue(this.date, value, timeUnit, true);
             return this;
         },
         get value() {
