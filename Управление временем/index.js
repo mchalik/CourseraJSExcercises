@@ -3,7 +3,7 @@
  * @returns {Object}
  */
 module.exports = function (date) {
-    var date = new Date(date);
+    date = new Date(date);
 
     function subtractValue(date, value, timeUnit) {
 
@@ -27,27 +27,29 @@ module.exports = function (date) {
             date.setMinutes(date.getMinutes() - value);
             return date
         }
-        throw new SyntaxError('Неверная едеинца времени');
+        throw new TypeError('Wrong time unit');
     }
 
     return {
         date: date,
         subtract: function (value, timeUnit) {
-            if (value < 0) new SyntaxError('Нельзя передавать отрицательное число');
+            if (value < 0) throw new TypeError('negative value');
             this.date = subtractValue(this.date, value, timeUnit);
-            console.log('subtract');
-            console.log(this);
             return this;
         },
         add: function (value, timeUnit) {
-            if (value < 0) new SyntaxError('Нельзя передавать отрицательное число');
+            if (value < 0) throw new TypeError('negative value');
             this.date = subtractValue(this.date, -value, timeUnit);
-            console.log('add');
-            console.log(this);
             return this;
         },
-        toString: function () {
-            return date;
+        get value() {
+            var date = this.date;
+            var year = date.getFullYear();
+            var month = ('0' + (1 + date.getMonth())).slice(-2);
+            var day = ('0' + date.getDate()).slice(-2);
+            var hours = ('0' + date.getHours()).slice(-2);
+            var minutes = ('0' + date.getMinutes()).slice(-2);
+            return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
         }
     };
 };
