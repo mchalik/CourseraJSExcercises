@@ -5,7 +5,7 @@
 module.exports = function (date) {
     var date = new Date(date);
 
-    function subtractValue(value, timeUnit) {
+    function subtractValue(date, value, timeUnit) {
 
         if (timeUnit === 'years') {
             date.setFullYear(date.getFullYear() - value);
@@ -30,18 +30,24 @@ module.exports = function (date) {
         throw new SyntaxError('Неверная едеинца времени');
     }
 
-    var resultObject = {
+    return {
+        date: date,
         subtract: function (value, timeUnit) {
             if (value < 0) new SyntaxError('Нельзя передавать отрицательное число');
-            subtractValue(value, timeUnit);
-            return resultObject;
+            this.date = subtractValue(this.date, value, timeUnit);
+            console.log('subtract');
+            console.log(this);
+            return this;
         },
         add: function (value, timeUnit) {
             if (value < 0) new SyntaxError('Нельзя передавать отрицательное число');
-            subtractValue(-value, timeUnit);
-            return resultObject;
+            this.date = subtractValue(this.date, -value, timeUnit);
+            console.log('add');
+            console.log(this);
+            return this;
+        },
+        toString: function () {
+            return date;
         }
     };
-
-    return resultObject
 };
