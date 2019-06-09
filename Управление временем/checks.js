@@ -4,11 +4,13 @@ var assert = require('assert');
 // Подключаем свою функцию
 var date = require('./index.js');
 
+console.log(date('2017-05-16 13:45'));
 var time = date('2017-05-16 13:45')
     .add(24, 'hours')
     .subtract(1, 'months')
     .add(3, 'days')
     .add(15, 'minutes');
+
 assert.deepEqual(
     time.value,
     '2017-04-20 14:00',
