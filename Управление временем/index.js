@@ -12,7 +12,7 @@ module.exports = function (date) {
         add : function (value, timeUnit) {
             return
         }
-    }
+    };
 
     function millisecondsFromTimeUnit(timeUnit) {
         var units = [];
@@ -32,5 +32,7 @@ module.exports = function (date) {
         hours
         minutes
 
+
+        throw new TypeError('Ошибка единицы измерения времени');
     }
 };

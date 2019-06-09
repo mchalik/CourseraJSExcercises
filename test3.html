@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+
+    function func(a = 55) {
+        a = 99; // updating a does not also update arguments[0]
+        console.log(arguments[0]);
+        console.log(arguments[1]);
+        console.log(a);
+    }
+    func(10); // 10
+    console.log('===');
+    func(15,20); // 10
+
+    
+</script>
+</body>
+</html>
