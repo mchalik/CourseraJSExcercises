@@ -77,12 +77,12 @@ function select() {
             for (var j = 1; j < acceptedProps; j++) {
                 var propIndex = currentCollectionKeys.indexOf(acceptedProps[j]);
                 if ( propIndex !== -1) {
-                    newObject[acceptedProps[j]] = propIndex
+                    newObject[acceptedProps[j]] = collection(acceptedProps[j]);
                 }
             }
             newCollection.push(newObject);
-
         }
+        return newCollection;
     };
 }
 
