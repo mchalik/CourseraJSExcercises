@@ -1,6 +1,5 @@
 var assert = require('assert');
 var parallel = require('./index');
-
 // Пример успешного выполнения операции
 parallel(
     [
@@ -8,6 +7,7 @@ parallel(
         function (next) {
             setTimeout(function () {
                 next(null, '500ms');
+                console.log(next);
             }, 500);
         },
 
@@ -15,6 +15,7 @@ parallel(
         function (next) {
             setTimeout(function () {
                 next(null, '50ms');
+                console.log(next);
             }, 50);
         },
 
@@ -22,12 +23,15 @@ parallel(
         function (next) {
             setTimeout(function () {
                 next(null, '200ms');
+                console.log(next);
             }, 200);
         }
     ],
 
     // Обработка результата выполнения операций (результирующий callback)
     function (errors, result) {
+        console.log(errors);
+        console.log(result);
         assert.deepEqual(errors, null);
         assert.deepEqual(result, ['500ms', '50ms', '200ms']);
 
@@ -42,6 +46,7 @@ parallel(
         function (next) {
             setTimeout(function () {
                 next(null, '500ms');
+                console.log(next);
             }, 500);
         },
 
@@ -49,6 +54,7 @@ parallel(
         function (next) {
             setTimeout(function () {
                 next('ERROR');
+                console.log(next);
             }, 10);
         },
 
@@ -56,6 +62,7 @@ parallel(
         function (next) {
             setTimeout(function () {
                 next(null, '200ms');
+                console.log(next);
             }, 200);
         }
     ],

@@ -8,18 +8,16 @@
 
 
 <script>
+    setTimeout(function() {
+        for (let i = 0; i <= 100; i++) {
+            console.log('a', i);
+        }
+    }, 0);
 
 
-    function func(a = 55) {
-        a = 99; // updating a does not also update arguments[0]
-        console.log(arguments[0]);
-        console.log(arguments[1]);
-        console.log(a);
+    for (let i = 0; i <= 100; i++) {
+        console.log('b', i);
     }
-    func(10); // 10
-    console.log('===');
-    func(15,20); // 10
-
     
 </script>
 </body>

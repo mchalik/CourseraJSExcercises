@@ -3,24 +3,33 @@
  * @param {Function} callback
  */
 
-var results = null;
-var errors = null;
-
-function pushToResults(error, result) {
-    if (error) {
-        if (errors === null) errors = [];
-        errors.push(result);
-    }
-    if (result) {
-        if (results === null) results = [];
-        results.push(result);
-    }
-}
-
-
 module.exports = function (operations, callback) {
+
+    var promises = [];
+
     operations.forEach(function (operation) {
-        operation(pushToResults);
+         promises.push(
+             new Promise(function (resolve, reject)  {
+                 operation(pushToResults);
+
+                 function pushToResults(error, result) {
+                     if (error) {
+                         reject(error);
+                     }
+                     if (result) {
+                         resolve(result);
+                     }
+                 }
+             })
+         )
     });
-    callback(errors, results);
+    Promise
+        .all(promises)
+        .then(function (result) {
+                callback(null, result)
+            },
+            function (error) {
+                callback(error)
+            }
+        );
 };
